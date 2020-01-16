@@ -32,6 +32,8 @@ button.on("click", function() {
      shape : inputField.nodes()[4].value,
     };
 
+
+    // update inputValues so that it doesn't include any unknown values
     Object.keys(inputValues).forEach(function(key) {
     var value = inputValues[key];
     if (value === "") {
@@ -41,8 +43,8 @@ button.on("click", function() {
 
     console.log(inputValues);
 
+  // filter by the inputs given by the user
   filterSighting = tableData.filter(function(item) {
-
     for (var key in inputValues) {
       if (inputValues[key] === undefined || item[key] != inputValues[key]) {
         return false;
