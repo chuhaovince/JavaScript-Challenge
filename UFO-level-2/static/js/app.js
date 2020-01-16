@@ -21,16 +21,56 @@ button.on("click", function() {
   tbody.html("");
 
     // Getting a reference to the input element on the page with the id property set to 'datetime'
-  var inputField = d3.selectAll(".form-control");
+   var inputField = d3.selectAll(".form-control");
 
-  var filterSighting = tableData.filter(sighting => (
-    sighting.datetime == inputField.node(0).value? 
-    : 
-                                                       sighting.city == inputField.node(1).value?
-                                                      | sighting.state == inputField.node(2).value
-                                                      | sighting.country == inputField.node(3).value
-                                                      | sighting.shape == inputField.node(4).value));
+   // get the values and save them in an object
+   var inputValues = {
+     datetime : inputField.nodes()[0].value,
+     city : inputField.nodes()[1].value,
+     state : inputField.nodes()[2].value,
+     country : inputField.nodes()[3].value,
+     shape : inputField.nodes()[4].value,
+    };
 
+  filterSighting = tableData.filter(function(item) {
+    for (var key in inputValues) {
+      if (item[key] === undefined || item[key] == inputValues[key]) {
+        return true;
+      }
+    }
+    return false;
+    
+  });
+  
+  console.log(filterSighting);
+
+  // var filterDate = tableData.filter(sighting => {
+  //   sighting.datetime == inputField.nodes()[0].value
+  // });
+
+  // var filterCity = filterDate.filter(sighting => {
+  //   sighting.city == inputField.nodes()[1].value
+  // });
+
+  // var filterState = filterCity.filter(sighting => {
+  //   sighting.state == inputField.nodes()[2].value
+  // });
+
+  // var filterCountry = filterCity.filter(sighting => {
+  //   sighting.country == inputField.nodes()[3].value
+  // });
+
+  // var filterShape = filterCountry.filter(sighting => {
+  //   sighting.shape == inputField.nodes()[4].value
+  // });
+
+  // var filterSighting = tableData.filter((sighting) =>  
+  //   sighting.datetime == inputField.nodes()[0].value ||
+  //   sighting.city == inputField.nodes()[1].value ||
+  //   sighting.state == inputField.nodes()[2].value ||
+  //   sighting.state == inputField.nodes()[3].value ||
+  //   sighting.state == inputField.nodes()[4].value
+  // );
 
   filterSighting.forEach((ufoSighting) => {
       var row = tbody.append("tr");
