@@ -32,17 +32,25 @@ button.on("click", function() {
      shape : inputField.nodes()[4].value,
     };
 
-  filterSighting = tableData.filter(function(item) {
-    for (var key in inputValues) {
-      if (item[key] === undefined || item[key] == inputValues[key]) {
-        return true;
+    Object.keys(inputValues).forEach(function(key) {
+    var value = inputValues[key];
+    if (value === "") {
+      delete inputValues[key];
       }
-    }
-    return false;
-    
+    });
+
+    console.log(inputValues);
+
+  filterSighting = tableData.filter(function(item) {
+
+    for (var key in inputValues) {
+      if (inputValues[key] === undefined || item[key] != inputValues[key]) {
+        return false;
+      }
+    };
+    return true;
   });
   
-  console.log(filterSighting);
 
   // var filterDate = tableData.filter(sighting => {
   //   sighting.datetime == inputField.nodes()[0].value
