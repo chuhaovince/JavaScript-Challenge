@@ -46,7 +46,7 @@ button.on("click", function() {
   // filter by the inputs given by the user
   filterSighting = tableData.filter(function(item) {
     for (var key in inputValues) {
-      if (inputValues[key] === undefined || item[key] != inputValues[key]) {
+      if (inputValues[key] == undefined || item[key] != inputValues[key]) {
         return false;
       }
     };
